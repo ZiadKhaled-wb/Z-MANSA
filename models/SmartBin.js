@@ -20,7 +20,7 @@ const smartBinSchema = mongoose.Schema({
         type: String,
         enum: ['Full', 'Empty']
     }
-});
+}, {timestamps: true});
 
 const SmartBin = mongoose.model("SmartBin", smartBinSchema);
 

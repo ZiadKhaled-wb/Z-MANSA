@@ -9,11 +9,13 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        lowerCase: true,
+        lowercase: true,
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        minlength: 8,
+        select: false
     },
     role: {
         type: String,
@@ -21,10 +23,12 @@ const userSchema = mongoose.Schema({
         default: 'user'
     },
     eco_points: {
-        type: Number
+        type: Number,
+        default: 0
     },
     total_carbon_saved: {
-        type: Number
+        type: Number,
+        default: 0
     }
 }, {timestamps : true }
 );

@@ -24,8 +24,8 @@ const recyclingTransactionSchema = mongoose.Schema({
     carbon_footprint_saved: {
         type: Number
     }
-});
+}, {timestamps: true});
 
-const RecyclingTranscation = mongoose.model("RecyclingTranscation", recyclingTransactionSchema);
+const RecyclingTransaction = mongoose.model("RecyclingTranscation", recyclingTransactionSchema);
 
 module.exports = RecyclingTranscation;
