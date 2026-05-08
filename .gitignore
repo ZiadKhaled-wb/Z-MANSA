@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Environment variables (CRITICAL)
+.env
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+
+# Logs and Cache
+cache/
+logs/*.log
+npm-debug.log*
