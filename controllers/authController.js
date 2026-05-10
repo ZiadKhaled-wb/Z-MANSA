@@ -54,3 +54,16 @@ exports.login = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.getMe = async (req, res, next) => {
+    try {
+        // req.user is attacthed by the protect middleware
+        const user = await User.findById(req.user.id);
+        res.status(200).json({
+            success: true,
+            data: user
+        });
+    } catch (error) {
+        next(error);
+    }
+}

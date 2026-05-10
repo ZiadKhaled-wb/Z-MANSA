@@ -1,5 +1,6 @@
 const express = require('express');
-const {register, login} = require('../controllers/authController');
+const {protect, authorize} = require('../middleware/auth');
+const {register, login, getMe} = require('../controllers/authController');
 
 const router = express.Router();
 
@@ -68,5 +69,27 @@ router.post('/register', register);
  *         description: Invalid credentials
  */
 router.post('/login', login);
+
+/**
+ * @swagger
+ * /api/v1/auth/me:
+ *   get:
+ *     summary: Get current logged in user profile
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Successfully fetched user profile
+ *       401:
+ *         description: Not authorized, token missing or invalid
+ */
+// PROTECTED ROUTE: Only logged-in users with a token can access this
+router.get('/me', protect, getMe);
+
+// AUTHORIZED ROUTE: Only logged-in users with the 'admin' role can access this
+router.get('/admin-only', protect, authorize('admin'), (req, res) => {
+    res.status(200).json({ success: true, message: 'Welcome to the Z-MANSA Admin Dashboard' });
+});
 
 module.exports = router;

@@ -33,6 +33,16 @@ const swaggerOptions = {
                 url: `http://localhost:${process.env.PORT || 8000}`,
             },
         ],
+        // ADD THIS NEW COMPONENTS SECTION:
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                },
+            },
+        },
     },
     // Paths to files containing OpenAPI definitions (your routes)
     apis: ['./routes/*.js'], 
