@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 // Helper Function to Sign the JWT
 
 const signToken = (id) => {
-    return jwt.sign({id}, process.env.process.JWT_SECRET, {
+    return jwt.sign({id}, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE
     });
 };
@@ -36,12 +36,12 @@ exports.login = async (req, res, next) => {
             });
         }
         // Check for the User and Explicitly Select the Password Filed
-        const user = await User.find({email}).select('+password');
+        const user = await User.findOne({email}).select('+password');
         
-        if (!user || !user.matchPassword(password)) {
+        if (!user || !(await user.matchPassword(password))) {
             return res.status(401).json({
                 success: false,
-                message: "Invalid Credntials"
+                message: "Invalid Credentials"
             });
         }
         const token = signToken(user._id);
@@ -51,6 +51,6 @@ exports.login = async (req, res, next) => {
             user: user
         });
     } catch (error) {
-        next(erro);
+        next(error);
     }
 };

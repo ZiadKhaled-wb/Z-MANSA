@@ -17,7 +17,7 @@ connectDB()
 app.use(express.json());
 
 // Middleware to allow cross-origin requests (from your future React app)
-app.use(cors);
+app.use(cors());
 
 // Swagger Configuration
 const swaggerOptions = {
@@ -30,7 +30,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: `http://localhost:${process.env.PORT || 5000}`,
+                url: `http://localhost:${process.env.PORT || 8000}`,
             },
         ],
     },
